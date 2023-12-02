@@ -188,7 +188,7 @@ public class DatabaseManager {
             System.out.println(e.getMessage());
             return null;
         }
-}
+    }
 
 
 public static JSONArray GetAllDistributors() {
@@ -202,7 +202,7 @@ public static JSONArray GetAllDistributors() {
     }
 }
 public static JSONArray GetIDItems(int Id) {
-    String sql = "SELECT distributor_prices.item, distributor_prices.name, distributor_prices.cost FROM distributors JOIN items ON items.id = distributor_prices.item WHERE items.id = ? ORDER BY items.id;";
+    String sql = "SELECT distributor_prices.item, distributors.name, distributor_prices.cost FROM distributor_prices JOIN distributors ON distributors.id = distributor_prices.distributor WHERE distributor_prices.item = ? ORDER BY distributors.id;";
     try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
         preparedStatement.setInt(1, Id);
         ResultSet resultSet = preparedStatement.executeQuery();
