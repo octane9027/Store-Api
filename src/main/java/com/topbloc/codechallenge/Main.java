@@ -27,6 +27,13 @@ public class Main {
          * It provides information about the purpose of the class,
          * its fields, constructors, methods, and usage.
          */
+
+
+         before((req, res) -> {
+            // Your middleware logic here
+            System.out.println("Executing middleware before routes");
+        });
+        
         get("/reset", (req, res) -> {
             DatabaseManager.resetDatabase();
             return "OK";
@@ -46,7 +53,7 @@ public class Main {
          */
         get("/version", (req, res) -> "TopBloc Code Challenge v1.0");
 
-    
+        
         new InventoryGetRoutes().configureRoutes();
 
         new DistributorGetRoutes().configureRoutes();
