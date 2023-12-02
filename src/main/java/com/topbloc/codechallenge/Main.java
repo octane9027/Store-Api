@@ -74,39 +74,74 @@ public class Main {
         });
 
         get("/Inventory/:id", (req, res) -> {
+            try {
             String id = req.params(":id");
-            ///CECK FOR INT if not int return 500
-            //STATUS CODES ERROR HANDLING
+            if (!id.matches("\\d+")) {
+                res.status(400); // Bad Request
+                return "Invalid ID format. ID must be an integer.";
+            }
             int intValue =Integer.parseInt(id);
-            return  DatabaseManager.GetByID(intValue);
+            Object result = DatabaseManager.GetByID(intValue);
+            res.status(200);
+            return result;
+            } catch (NumberFormatException e) {
+                res.status(400); // Bad Request
+                return "Invalid ID format. ID must be an integer.";
+            } catch (Exception e) {
+                res.status(500); // Internal Server Error
+                return "Internal Server Error: " + e.getMessage();
+            }
+
         });
 /////////////////////////////////
 
 
             get("/Distributor/GetAllDistributors", (req, res) -> {
-                ///CECK FOR INT if not int return 500
-                //STATUS CODES ERROR HANDLING
-                
                 return  DatabaseManager.GetAllDistributors();
             });
 
             get("/Distributor/items/:id", (req, res) -> {
-                String id = req.params(":id");
-                ///CECK FOR INT if not int return 500
-                //STATUS CODES ERROR HANDLING
-                
-                int intValue =Integer.parseInt(id);
-                return  DatabaseManager.GetIDItems(intValue);
+                try {
+                    String id = req.params(":id");
+        
+                    if (!id.matches("\\d+")) {
+                        res.status(400); // Bad Request
+                        return "Invalid ID format. ID must be an integer.";
+                    }
+                    int intValue =Integer.parseInt(id);
+                    Object result =DatabaseManager.GetIDItems(intValue);
+                    res.status(200);
+                    return result;
+                    } catch (NumberFormatException e) {
+                        res.status(400); // Bad Request
+                        return "Invalid ID format. ID must be an integer.";
+                    } catch (Exception e) {
+                        res.status(500); // Internal Server Error
+                        return "Internal Server Error: " + e.getMessage();
+                    }
             });
 
 
             get("/Distributor/:id", (req, res) -> {
-                String id = req.params(":id");
-                ///CECK FOR INT if not int return 500
-                //STATUS CODES ERROR HANDLING
-                
-                int intValue =Integer.parseInt(id);
-                return  DatabaseManager.GetByIDDistributor(intValue);
+                try {
+                    String id = req.params(":id");
+        
+                    if (!id.matches("\\d+")) {
+                        res.status(400); // Bad Request
+                        return "Invalid ID format. ID must be an integer.";
+                    }
+                    int intValue =Integer.parseInt(id);
+                    Object result = DatabaseManager.GetByIDDistributor(intValue);
+                    res.status(200);
+                    return result;
+                    } catch (NumberFormatException e) {
+                        res.status(400); // Bad Request
+                        return "Invalid ID format. ID must be an integer.";
+                    } catch (Exception e) {
+                        res.status(500); // Internal Server Error
+                        return "Internal Server Error: " + e.getMessage();
+                    }
+
             });
 
 
