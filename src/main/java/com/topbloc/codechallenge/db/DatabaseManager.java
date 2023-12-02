@@ -85,10 +85,10 @@ public class DatabaseManager {
     private static void seedDatabase() {
         String itemsSql = "INSERT INTO items (id, name) VALUES (1, 'Licorice'), (2, 'Good & Plenty'),\n"
             + "(3, 'Smarties'), (4, 'Tootsie Rolls'), (5, 'Necco Wafers'), (6, 'Wax Cola Bottles'), (7, 'Circus Peanuts'), (8, 'Candy Corn'),\n"
-            + "(9, 'Twix'), (10, 'Snickers'), (11, 'M&Ms'), (12, 'Skittles'), (13, 'Starburst'), (14, 'Butterfinger'), (15, 'Peach Rings'), (16, 'Gummy Bears'), (17, 'Sour Patch Kids')";
+            + "(9, 'Twix'), (10, 'Snickers'), (11, 'M&Ms'), (12, 'Skittles'), (13, 'Starburst'), (14, 'Butterfinger'), (15, 'Peach Rings'), (16, 'Gummy Bears'), (17, 'Sour Patch Kids'), (18, 'Michalki'), (19, 'Doritos')";
         String inventorySql = "INSERT INTO inventory (item, stock, capacity) VALUES\n"
                 + "(1, 22, 25), (2, 4, 20), (3, 15, 25), (4, 30, 50), (5, 14, 15), (6, 8, 10), (7, 10, 10), (8, 30, 40), (9, 17, 70), (10, 43, 65),\n" +
-                "(11, 32, 55), (12, 25, 45), (13, 8, 45), (14, 10, 60), (15, 20, 30), (16, 15, 35), (17, 14, 60)";
+                "(11, 32, 55), (12, 25, 45), (13, 8, 45), (14, 10, 60), (15, 20, 30), (16, 15, 35), (17, 14, 60), (18, 0, 200), (19, 23,20)";
         String distributorSql = "INSERT INTO distributors (id, name) VALUES (1, 'Candy Corp'), (2, 'The Sweet Suite'), (3, 'Dentists Hate Us')";
         String distributorPricesSql = "INSERT INTO distributor_prices (distributor, item, cost) VALUES \n" +
                 "(1, 1, 0.81), (1, 2, 0.46), (1, 3, 0.89), (1, 4, 0.45), (2, 2, 0.18), (2, 3, 0.54), (2, 4, 0.67), (2, 5, 0.25), (2, 6, 0.35), (2, 7, 0.23), (2, 8, 0.41), (2, 9, 0.54),\n" +
@@ -138,9 +138,8 @@ public class DatabaseManager {
         return obj;
     }
 
-    // Controller functions - add your routes here. getItems is provided as an example
     public static JSONArray getItems() {
-        String sql = "SELECT * FROM items";
+        String sql = "SELECT items.id, items.name, inventory.stock, inventory.capacity FROM items JOIN inventory ON items.id = inventory.item  ORDER BY items.id;";
         try {
             ResultSet set = conn.createStatement().executeQuery(sql);
             return convertResultSetToJson(set);
@@ -149,4 +148,83 @@ public class DatabaseManager {
             return null;
         }
     }
+    public static JSONArray getOutOfStock() {
+        String sql = "SELECT items.id, items.name, inventory.stock, inventory.capacity FROM items JOIN inventory ON items.id = inventory.item where inventory.stock = 0  ORDER BY items.id;";
+        try {
+            ResultSet set = conn.createStatement().executeQuery(sql);
+            return convertResultSetToJson(set);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    public static JSONArray GetOverStock() {
+        String sql = "SELECT items.id, items.name, inventory.stock, inventory.capacity FROM items JOIN inventory ON items.id = inventory.item where inventory.capacity <  inventory.stock  ORDER BY items.id;";
+        try {
+            ResultSet set = conn.createStatement().executeQuery(sql);
+            return convertResultSetToJson(set);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+        public static JSONArray GetLessThen35() {
+            String sql = "SELECT items.id, items.name, inventory.stock, inventory.capacity FROM items JOIN inventory ON items.id = inventory.item where (CAST(inventory.stock AS REAL) / inventory.capacity) < 0.35 ORDER BY items.id;";
+            try {
+                ResultSet set = conn.createStatement().executeQuery(sql);
+                return convertResultSetToJson(set);
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                return null;
+            }
+    }
+    public static JSONArray GetByID(int Id) {
+        String sql = "SELECT items.id, items.name, inventory.stock, inventory.capacity FROM items JOIN inventory ON items.id = inventory.item WHERE items.id = ? ORDER BY items.id;";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+            preparedStatement.setInt(1, Id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return convertResultSetToJson(resultSet);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+}
+
+
+public static JSONArray GetAllDistributors() {
+    String sql = "SELECT * FROM distributors;";
+    try {
+        ResultSet set = conn.createStatement().executeQuery(sql);
+        return convertResultSetToJson(set);
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        return null;
+    }
+}
+public static JSONArray GetIDItems(int Id) {
+    String sql = "SELECT distributor_prices.item, distributor_prices.name, distributor_prices.cost FROM distributors JOIN items ON items.id = distributor_prices.item WHERE items.id = ? ORDER BY items.id;";
+    try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+        preparedStatement.setInt(1, Id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return convertResultSetToJson(resultSet);
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        return null;
+    }
+}
+
+public static JSONArray GetByIDDistributor(int Id) {
+    String sql = "SELECT distributors.id, distributors.name, distributor_prices.cost FROM distributors JOIN distributor_prices ON distributors.id = distributor_prices.distributor WHERE distributor_prices.item = ?;";
+    try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+        preparedStatement.setInt(1, Id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return convertResultSetToJson(resultSet);
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        return null;
+    }
+}
+
+
+
 }
