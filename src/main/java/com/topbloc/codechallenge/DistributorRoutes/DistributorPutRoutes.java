@@ -16,10 +16,12 @@ public class DistributorPutRoutes {
                 try{
                     JSONParser parser = new JSONParser();
                     JSONObject jsonBody = (JSONObject) parser.parse(req.body());
+                    //verifies that body has 3 fields otherwise its a bad reuqest
                     if (jsonBody.size() != 3) {
                         halt(400, "{messgae: Bad Request - JSON object must have exactly 3 fields}");
                     }
                     try {
+                        //verifies that the field distributor exists and it is an integer 
                         if (!jsonBody.containsKey("distributor") ||   !jsonBody.get("distributor").toString().matches("\\d+")) {
                             halt(400, "{messgae: Bad Request - JSON object must have a field named 'distributor' as a Integer, please update distributor to integer}");
                         }
@@ -29,6 +31,7 @@ public class DistributorPutRoutes {
 
                     } 
                      try {
+                        //verifies that the field item exists and it is an integer 
                         if (!jsonBody.containsKey("item") ||   !jsonBody.get("item").toString().matches("\\d+")) {
                             halt(400, "{messgae: Bad Request - JSON object must have a field named 'item' as a Integer, please update item to integer}");
                         }
@@ -39,6 +42,7 @@ public class DistributorPutRoutes {
                     } 
 
                     try {
+                        //verifies that the field cost exists and it is double regex validation used 
                         if (!jsonBody.containsKey("cost") ||   !jsonBody.get("cost").toString().matches("[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?")) {
                             halt(400, "{messgae: Bad Request - JSON object must have a field named 'cost' as a Integer, please update cost to double}");
                         }

@@ -22,43 +22,27 @@ public class Main {
                     return "OK";
                 });
 
-        /**
-         * This is a Javadoc comment for the InventoryItem class.
-         * It provides information about the purpose of the class,
-         * its fields, constructors, methods, and usage.
-         */
 
-
-        before((req, res) -> {
-            // Your middleware logic here
-            System.out.println("Executing middleware before routes");
-        });
 
         get("/reset", (req, res) -> {
             DatabaseManager.resetDatabase();
             return "OK";
         });
 
-        /**
-         * This is a Javadoc comment for the InventoryItem class.
-         * It provides information about the purpose of the class,
-         * its fields, constructors, methods, and usage.
-         */        
+             
         get("/items", (req, res) -> DatabaseManager.getItems());
 
-        /**
-         * This is a Javadoc comment for the InventoryItem class.
-         * It provides information about the purpose of the class,
-         * its fields, constructors, methods, and usage.
-         */
+       
         get("/version", (req, res) -> "TopBloc Code Challenge v1.0");
         
-
+        //router for Inventory Routes
         new InventoryPostRoutes().configureRoutes();
         new InventoryPutRoutes().configureRoutes();
         new InventoryGetRoutes().configureRoutes();
         new InventoryDeleteRoutes().configureRoutes();
 
+
+        //router for Distributo Routes
         new DistributorPostRoutes().configureRoutes();
         new DistributorGetRoutes().configureRoutes();
         new DistributorPutRoutes().configureRoutes();
