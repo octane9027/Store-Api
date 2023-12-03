@@ -18,7 +18,7 @@ public class InventoryGetRoutes {
 
                     if(result == null){
                         res.status(500);
-                        return "Serverside error occured please try again later.";
+                        return "{ message: Serverside error occured please try again later.}";
 
                     }else{
                         res.status(200);
@@ -32,7 +32,7 @@ public class InventoryGetRoutes {
 
                     if(result == null){
                         res.status(500);
-                        return "Serverside error occured please try again later.";
+                        return "{ message: Serverside error occured please try again later.}";
 
                     }else{
                         res.status(200);
@@ -50,7 +50,7 @@ public class InventoryGetRoutes {
 
                     if(result == null){
                         res.status(500);
-                        return "Serverside error occured please try again later.";
+                        return "{ message: Serverside error occured please try again later.}";
 
                     }else{
                         res.status(200);
@@ -67,7 +67,7 @@ public class InventoryGetRoutes {
 
                     if(result == null){
                         res.status(500);
-                        return "Serverside error occured please try again later.";
+                        return "{ message: Serverside error occured please try again later.}";
 
                     }else{
                         res.status(200);
@@ -84,7 +84,7 @@ public class InventoryGetRoutes {
                     Object result = DatabaseManager.GetLessThen35();
                     if(result == null){
                         res.status(500);
-                        return "Serverside error occured please try again later.";
+                        return "{ message: Serverside error occured please try again later.}";
 
                     }else{
                         res.status(200);
@@ -92,7 +92,9 @@ public class InventoryGetRoutes {
                         return result;
                     }
                 });
-
+                /**
+                 *  localhost:4567/GetOverStock- 
+                 */
                 get("/:id", (req, res) -> {
                     try {
                     String id = req.params(":id");
@@ -100,7 +102,7 @@ public class InventoryGetRoutes {
 
                     if (!id.matches("\\d+")) {
                         res.status(400); // Bad Request
-                        return "Invalid ID format. ID must be an integer.";
+                        return "{ message: Serverside error occured please try again later.}";
                     }
                     System.out.println("ID Vaildations complete");
                     System.out.println("Checking DB......");
@@ -108,7 +110,7 @@ public class InventoryGetRoutes {
                     Object result = DatabaseManager.GetByID(intValue);
                     if(result == null){
                         res.status(500);
-                        return "Serverside error occured please try again later.";
+                        return "{message : Serverside error occured please try again later.}";
 
                     }else{
                         res.status(200);
@@ -118,7 +120,7 @@ public class InventoryGetRoutes {
                     }
                     } catch (NumberFormatException e) {
                         res.status(400); // Bad Request
-                        return "Invalid ID format. ID must be an integer.";
+                        return "{message: Invalid ID format. ID must be an integer.}";
                     } catch (Exception e) {
                         res.status(500); // Internal Server Error
                         return "Internal Server Error: " + e.getMessage();

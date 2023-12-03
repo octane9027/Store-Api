@@ -12,48 +12,52 @@ import org.json.simple.parser.JSONParser;
 
 public class InventoryPutRoutes {
     public void configureRoutes() {
+
+
         path("/Inventory", () -> {
-            
+            /**
+                 *  localhost:4567/GetOverStock- 
+                 */
             post("/UpdateItem", (req, res) -> {
                 try{
                     JSONParser parser = new JSONParser();
                     JSONObject jsonBody = (JSONObject) parser.parse(req.body());
                     if (jsonBody.size() != 3) {
-                        halt(400, "Bad Request - JSON object must have exactly 3 fields");
+                        halt(400, "{ message: Bad Request - JSON object must have exactly 3 fields}");
                     }
                     try {
                         if (!jsonBody.containsKey("item") ||   !jsonBody.get("item").toString().matches("\\d+")) {
-                            halt(400, "Bad Request - JSON object must have a field named 'item' as a Integer, please update item to integer");
+                            halt(400, "{ message: Bad Request - JSON object must have a field named 'item' as a Integer, please update item to integer}");
                         }
                     } catch (Exception e) {
                         System.out.println("Error parsing JSON: " + e.getMessage());
-                        halt(400, "Bad Request - JSON object must have a field named 'item', item may not exist in the object, also check your type of the value it must be integer");
+                        halt(400, "{ message: Bad Request - JSON object must have a field named 'item', item may not exist in the object, also check your type of the value it must be integer}");
 
                     } 
                      try {
                         if (!jsonBody.containsKey("stock") ||   !jsonBody.get("stock").toString().matches("\\d+")) {
-                            halt(400, "Bad Request - JSON object must have a field named 'stock' as a Integer, please update stock to integer");
+                            halt(400, "{ message: Bad Request - JSON object must have a field named 'stock' as a Integer, please update stock to integer }");
                         }
                     } catch (Exception e) {
                         System.out.println("Error parsing JSON: " + e.getMessage());
-                        halt(400, "Bad Request - JSON object must have a field named 'stock', stock may not exist in the object,  also check your type of the value it must be integer");
+                        halt(400, "{ message: Bad Request - JSON object must have a field named 'stock', stock may not exist in the object,  also check your type of the value it must be integer}");
 
                     } 
 
                     try {
                         if (!jsonBody.containsKey("capacity") ||   !jsonBody.get("capacity").toString().matches("\\d+")) {
-                            halt(400, "Bad Request - JSON object must have a field named 'capacity' as a Integer, please update capacity to integer");
+                            halt(400, "{ message: Bad Request - JSON object must have a field named 'capacity' as a Integer, please update capacity to integer }");
                         }
                     } catch (Exception e) {
                         System.out.println("Error parsing JSON: " + e.getMessage());
-                        halt(400, "Bad Request - JSON object must have a field named 'capacity', capacity may not exist in the object, also check your type of the value it must be integer");
+                        halt(400, "{ message: Bad Request - JSON object must have a field named 'capacity', capacity may not exist in the object, also check your type of the value it must be integer}");
 
                     } 
                    
                     int itemId = ((Long) jsonBody.get("item")).intValue();
                    JSONArray array =  DatabaseManager.checkIfItemExists(itemId);
                    if(array.size() == 0){
-                         halt(400, "Bad Request - item doesn't exist in items database");
+                         halt(400, "{ message: Bad Request - item doesn't exist in items database}");
                    }
 
                     int capacity =  ((Long) jsonBody.get("capacity")).intValue();
@@ -64,10 +68,7 @@ public class InventoryPutRoutes {
                  catch (ParseException e) {
                     halt(500, "Server Error");
                 }
-        
-    
-           
-                return "OK" ;  
+                return "{ message:  OK }" ;  
               
                 });
    

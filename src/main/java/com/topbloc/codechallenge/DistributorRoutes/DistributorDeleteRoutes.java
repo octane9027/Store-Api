@@ -6,7 +6,9 @@ import com.topbloc.codechallenge.db.DatabaseManager;
 public class DistributorDeleteRoutes {
     public void configureRoutes() {
         path("/Distributor", () -> {
-
+                /**
+                 *  localhost:4567/GetOverStock- 
+                 */
         delete("/DeleteDistributor/:id", (req, res) -> {
             try {
                 String id = req.params(":id");
@@ -20,12 +22,12 @@ public class DistributorDeleteRoutes {
                 System.out.println("Checking DB......");
                 int intValue =Integer.parseInt(id);
                 if(DatabaseManager.checkIfDistributorExists(intValue).size() == 0 ){
-                    halt(400, "Bad Request - Distributor does not exist.");
+                    halt(400, "{ message: Bad Request - Distributor does not exist.} ");
                 }
                 DatabaseManager.DeleteDistributor(intValue);
                 res.status(200);
                 System.out.println("SUCESS");
-                return "{ResponseFromServer: OK}";
+                return "{message: OK}";
 
 
                 } catch (NumberFormatException e) {
