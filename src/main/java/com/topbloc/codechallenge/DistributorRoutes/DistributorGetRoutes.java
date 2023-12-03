@@ -24,10 +24,10 @@ public class DistributorGetRoutes {
                     
                 });
 
-                get("/items/:id", (req, res) -> {
+                get("/Distributor/:id", (req, res) -> {
                     try {
                         String id = req.params(":id");
-                        System.out.println("/Distributor/items/:id");
+                        System.out.println("/Distributor/Distributor/:id");
 
                         if (!id.matches("\\d+")) {
                             res.status(400); // Bad Request
@@ -59,10 +59,10 @@ public class DistributorGetRoutes {
                 });
 
 
-                get("/:id", (req, res) -> {
+                get("/items/:id", (req, res) -> {
                     try {
                         String id = req.params(":id");
-                        System.out.println("/Distributor/:id");
+                        System.out.println("/Distributor/items/:id");
 
                         if (!id.matches("\\d+")) {
                             res.status(400); // Bad Request

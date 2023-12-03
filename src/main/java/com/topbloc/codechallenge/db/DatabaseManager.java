@@ -224,7 +224,7 @@ public static JSONArray GetAllDistributors() {
     }
 }
 public static JSONArray GetIDItems(int Id) {
-    String sql = "SELECT distributor_prices.item, distributors.name, distributor_prices.cost FROM distributor_prices JOIN distributors ON distributors.id = distributor_prices.distributor WHERE distributor_prices.item = ? ORDER BY distributors.id;";
+    String sql = "SELECT distributor_prices.item, distributor_prices.cost, items.name FROM distributor_prices JOIN items  ON items.id = distributor_prices.item WHERE distributor_prices.distributor = ? ORDER BY distributor_prices.distributor;";
     try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
         preparedStatement.setInt(1, Id);
         ResultSet resultSet = preparedStatement.executeQuery();

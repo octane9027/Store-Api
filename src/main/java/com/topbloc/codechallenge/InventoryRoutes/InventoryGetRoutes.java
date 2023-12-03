@@ -26,6 +26,7 @@ public class InventoryGetRoutes {
                         return result;
                     }
                 });
+                
                 get("/Items", (req, res) -> {
                     System.out.println("/Inventory/Items");
                     Object result = DatabaseManager.selectAllItems();
