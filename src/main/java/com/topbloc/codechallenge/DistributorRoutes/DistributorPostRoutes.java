@@ -57,7 +57,7 @@ public class DistributorPostRoutes {
 
                     int cost =  ((Long) jsonBody.get("cost")).intValue();
                     int item =  ((Long) jsonBody.get("item")).intValue();
-                    DatabaseManager.InsertItemInventory( distributorId, item, cost );
+                    DatabaseManager.InsertDistributorCatalogue( distributorId, item, cost );
                     return "OK";
                 }
                  catch (ParseException e) {

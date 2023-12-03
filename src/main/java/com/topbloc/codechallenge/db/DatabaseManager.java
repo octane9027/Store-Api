@@ -267,6 +267,7 @@ public static JSONArray checkIfItemExists(int Id) {
         return null;
     }
 }
+
 public static JSONArray checkIfDistributorExists(int Id) {
     String sql = "SELECT * from distributors where id = ?";
     try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
