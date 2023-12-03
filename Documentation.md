@@ -412,7 +412,7 @@ http POST localhost:4567/Distributor/addToCatalouge
 
 
 ### 14. Endpoint Name
-#### `POST /Distributor/UpdatePrice`
+#### `PUT /Distributor/UpdatePrice`
 
 **Description:**
 Updates price in distributors catalogue given 
@@ -430,4 +430,41 @@ Updates price in distributors catalogue given
 Route Will return an OK that the item was successfully update in the database
 
 **Request:**
-http POST localhost:4567/Distributor/UpdatePrice
+http PUT localhost:4567/Distributor/UpdatePrice
+
+### 15. Endpoint Name
+#### `DELETE /Distributor/DeleteDistributor/:id`
+
+**Description:**
+deletes distributor and all of its entries in the catalogue.
+
+**Possible Responses:**
+500, 400, 200
+
+**Input:**
+Distributor id
+
+**Response:**
+Route Will return an OK that the item was successfully update in the database
+
+**Request:**
+http PUT localhost:4567/Distributor/DeleteDistributor/:id
+
+
+### 16. Endpoint Name
+#### `DELETE /Item/DeleteItem/:id`
+
+**Description:**
+deletes item and all of its entries in the catalogue.
+
+**Possible Responses:**
+500, 400, 200
+
+**Input:**
+Distributor id
+
+**Response:**
+Route Will return an OK that the item was successfully update in the database
+
+**Request:**
+http PUT localhost:4567/Distributor/DeleteDistributor/:id
