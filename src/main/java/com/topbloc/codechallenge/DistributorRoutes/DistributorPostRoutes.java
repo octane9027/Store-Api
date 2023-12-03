@@ -83,7 +83,7 @@ public class DistributorPostRoutes {
                         halt(400, "Bad Request - JSON object must have a field named 'name' as a string");
 
                     }
-                        JSONObject  largestId =  (JSONObject) DatabaseManager.getLargestId().get(0);
+                        JSONObject  largestId =  (JSONObject) DatabaseManager.getLargestIdDistributor().get(0);
                         int maxId = (int) largestId.get("max_id") + 1;
                         String name= (String) jsonBody.get("name");
                         DatabaseManager.InsertDistributor(maxId, name);

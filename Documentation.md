@@ -269,3 +269,165 @@ route returns an array of json objects sorted by ID. A valid response is an empt
 
 **Request:**
 http GET localhost:4567//Distributor/items/2
+
+
+### 9. Endpoint Name
+#### `POST /Inventory/addItem`
+
+**Description:**
+Add a new item to your inventory, If item does not exist in the items db it will not be inserted since it is not a valid item.
+
+
+**Possible Responses:**
+500, 400, 200
+
+**Input:**
+{
+  item: Integer,
+  stock: Integer,
+  capacity : Integer
+}
+
+**Response:**
+Route Will return an OK that the item was successfully inserted to the database
+
+**Request:**
+http POST localhost:4567/Inventory/addItem
+
+
+
+### 9. Endpoint Name
+#### `POST /Inventory/addItem`
+
+**Description:**
+Add a new item to your Database, id will be assigned by on the backend to avoid duplicate id insertion.
+
+
+**Possible Responses:**
+500, 400, 200
+
+**Input:**
+{
+  name : String
+}
+
+**Response:**
+Route Will return an OK that the item was successfully inserted to the database
+
+**Request:**
+http POST localhost:4567/item/add
+
+
+
+### 10. Endpoint Name
+#### `POST /Inventory/addItem`
+
+**Description:**
+Add a new item to your Database, id will be assigned by on the backend to avoid duplicate id insertion.
+
+
+**Possible Responses:**
+500, 400, 200
+
+**Input:**
+{
+  name : String
+}
+
+**Response:**
+Route Will return an OK that the item was successfully inserted to the database
+
+**Request:**
+http POST localhost:4567/item/add
+
+
+
+
+
+### 11. Endpoint Name
+#### `PUT /Inventory/UpdateItem`
+
+**Description:**
+Add a new item to your Database, id will be assigned by on the backend to avoid duplicate id insertion.
+
+
+**Possible Responses:**
+500, 400, 200
+
+**Input:**
+{
+  item: Integer,
+  stock: Integer,
+  capacity : Integer
+}
+
+**Response:**
+Route Will return an OK that the item was successfully update in the database
+
+**Request:**
+http PUT localhost:4567/Inventory/UpdateItem
+
+
+
+### 12. Endpoint Name
+#### `POST /Distributor/addDistributor`
+
+**Description:**
+Adds a distributor the database
+
+**Possible Responses:**
+500, 400, 200
+
+**Input:**
+
+
+**Response:**
+Route Will return an OK that the item was successfully update in the database
+
+**Request:**
+http POST localhost:4567/Distributor/addDistributor
+
+
+
+
+### 13. Endpoint Name
+#### `POST /Distributor/addToCatalouge`
+
+**Description:**
+Adds a distributor the database
+
+**Possible Responses:**
+500, 400, 200
+
+**Input:**
+{
+ name: String
+}
+
+**Response:**
+Route Will return an OK that the item was successfully update in the database
+
+**Request:**
+http POST localhost:4567/Distributor/addToCatalouge
+
+
+### 14. Endpoint Name
+#### `POST /Distributor/UpdatePrice`
+
+**Description:**
+Updates price in distributors catalogue given 
+**Possible Responses:**
+500, 400, 200
+
+**Input:**
+{
+ distributor: Integer,
+ item: Integer,
+ cost: Integer
+}
+
+**Response:**
+Route Will return an OK that the item was successfully update in the database
+
+**Request:**
+http POST localhost:4567/Distributor/UpdatePrice

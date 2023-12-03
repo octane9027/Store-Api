@@ -256,6 +256,17 @@ public static JSONArray getLargestId() {
         return null;
     }
 }
+
+public static JSONArray getLargestIdDistributor() {
+    String sql = "SELECT MAX(id) AS max_id FROM distributors";
+    try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+        ResultSet set = conn.createStatement().executeQuery(sql);
+        return convertResultSetToJson(set);
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        return null;
+    }
+}
 public static JSONArray checkIfItemExists(int Id) {
     String sql = "SELECT * from items where id = ?";
     try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
