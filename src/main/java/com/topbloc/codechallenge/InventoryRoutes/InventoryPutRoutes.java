@@ -15,9 +15,7 @@ public class InventoryPutRoutes {
 
 
         path("/Inventory", () -> {
-            /**
-                 *  localhost:4567/GetOverStock- 
-                 */
+
             post("/UpdateItem", (req, res) -> {
                 try{
                     JSONParser parser = new JSONParser();

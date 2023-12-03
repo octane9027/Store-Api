@@ -5,12 +5,14 @@ import com.topbloc.codechallenge.db.DatabaseManager;
 public class InventoryDeleteRoutes {
     public void configureRoutes() {
         path("/Item", () -> {
-
+        /**
+        *  localhost:4567/Item/DeleteItem/:id
+        */
             delete("/DeleteItem/:id", (req, res) -> {
                 try {
                     String id = req.params(":id");
                     System.out.println("/Item/DeleteItem/:id");
-    
+                    //verifies that this is an integer 
                     if (!id.matches("\\d+")) {
                         res.status(400); // Bad Request
                         return "{messgae: Invalid ID format. ID must be an integer.}";
@@ -18,9 +20,11 @@ public class InventoryDeleteRoutes {
                     System.out.println("ID Vaildations complete");
                     System.out.println("Checking DB......");
                     int intValue =Integer.parseInt(id);
+                    //check if the item exists in the database
                     if(DatabaseManager.checkIfItemExists(intValue).size() == 0 ){
                         halt(400, "{ message:  Bad Request - Item does not exist. } ");
                     }
+                    //deletes item
                     DatabaseManager.DeleteItem(intValue);
                     res.status(200);
                     System.out.println("SUCESS");

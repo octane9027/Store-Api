@@ -15,9 +15,7 @@ public class InventoryPostRoutes {
 
     public void configureRoutes() {
         path("/Inventory", () -> {
-                /**
-                 *  localhost:4567/GetOverStock- 
-                 */
+               
             post("/addItem", (req, res) -> {
                 try{
                     JSONParser parser = new JSONParser();
@@ -78,9 +76,6 @@ public class InventoryPostRoutes {
 
 
         });
-                /**
-                 *  localhost:4567/GetOverStock- 
-                 */
         path("/item", () -> {
             post("/add", (req, res) -> {
                 try{

@@ -128,11 +128,11 @@ public class InventoryGetRoutes {
                     }
 
                 });
-            get("/minPrice/:id", (req, res) -> {
+                get("/minPrice/:id", (req, res) -> {
                     try {
                     String id = req.params(":id");
                     System.out.println("/Inventory/minPrice/:id");
-
+                    //validation of integer
                     if (!id.matches("\\d+")) {
                         res.status(400); // Bad Request
                         return "{ message: Serverside error occured please try again later.}";
