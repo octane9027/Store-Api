@@ -12,7 +12,7 @@ public class DistributorDeleteRoutes {
     public void configureRoutes() {
         path("/Distributor", () -> {
 
-        get("/DeleteDistributor/:id", (req, res) -> {
+        delete("/DeleteDistributor/:id", (req, res) -> {
             try {
                 String id = req.params(":id");
                 System.out.println("/Distributor/DeleteDistributor/:id");
