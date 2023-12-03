@@ -347,7 +347,6 @@ public static int InsertDistributor(int Id, String Name) {
 
 
 public static int updateDistributorPricing(int distributorId, int item, Double cost) {
-    //UPDATE items SET stock = ?, capacity = ? WHERE id = ?
     String sql = "UPDATE distributor_prices SET cost = ? where distributor = ? AND item = ?;";
     try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
         preparedStatement.setDouble(1, cost);
@@ -413,5 +412,16 @@ public static int DeleteItem(int itemId) {
         return 0;
     }
 }
-
+public static JSONArray MinPrice(int itemId) {
+    String sql = "SELECT items.name AS item_name, distributors.name AS distributor_name,  MIN(distributor_prices.cost * (inventory.capacity - inventory.stock)) AS min_price FROM items JOIN distributor_prices ON items.id = distributor_prices.item JOIN distributors ON distributor_prices.distributor = distributors.id JOIN inventory ON items.id = ? WHERE inventory.stock < inventory.capacity GROUP BY items.name, distributors.name ORDER BY item_name, min_price;";
+    try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+        preparedStatement.setInt(1, itemId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return convertResultSetToJson(resultSet);        
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        return null;
+    }
+    
+}
 }

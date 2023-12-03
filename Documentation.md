@@ -3,6 +3,7 @@
 - currently there is no authentication but this security feature must be considered in the event that this API is exposed to the public. 
 - logging agent must be considered currently to minimize the dependencies a logger lik Log4j was not installed but upon deployment to AWS, and productionizing this api this must be added.
 - Alerting also must be added in the event of true failures or service downing adding an alerting service like pager duty should be considered.
+- NOTE spark was upgraded to latest version to support a controller.
 - The optimal infrasturcture on AWS should be considered based off the average TPS. We have a few options:
       - We could deploy this as an EC2 with ECS tasks with an alb in front and r53. Downside to this would be cost
       - We could use a lambda and ALB in the event we have a lower TPS and are not concerned with latency on cold starts. downside is scalability.
@@ -468,3 +469,30 @@ Route Will return an OK that the item was successfully update in the database
 
 **Request:**
 http PUT localhost:4567/Distributor/DeleteDistributor/:id
+
+
+
+### 16. Endpoint Name
+#### `GET /Item/DeleteItem/:id`
+
+**Description:**
+deletes item and all of its entries in the catalogue.
+
+**Possible Responses:**
+500, 400, 200
+
+**Input:**
+Distributor id
+
+**Response:**
+[
+  {
+    "min_price": 0.18,
+    "item_name": "Good & Plenty",
+    "distributor_name": "The Sweet Suite"
+  }
+]
+Route Will return an OK that the item was successfully update in the database
+
+**Request:**
+http GET localhost:4567/Inventory/minPrice/:id
