@@ -1,8 +1,6 @@
 package com.topbloc.codechallenge.InventoryRoutes;
 import static spark.Spark.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import com.topbloc.codechallenge.db.DatabaseManager;
 import org.json.simple.parser.ParseException;
@@ -53,16 +51,20 @@ public class InventoryPostRoutes {
                         halt(400, "Bad Request - JSON object must have a field named 'capacity', capacity may not exist in the object, also check your type of the value it must be integer");
 
                     } 
-                    //verify that this item does exist in item db
-                    int itemId =  (int) jsonBody.get("item");
-                    //verify
-                    //add
+                   
+                    int itemId = ((Long) jsonBody.get("item")).intValue();
+                   JSONArray array =  DatabaseManager.checkIfItemExists(itemId);
+                   if(array.size() == 0){
+                         halt(400, "Bad Request - item doesn't exist in items database");
+                   }
 
-                    
+                    int capacity =  ((Long) jsonBody.get("capacity")).intValue();
+                    int stock =  ((Long) jsonBody.get("stock")).intValue();
+                    DatabaseManager.InsertItemInventory( itemId, capacity, stock );
                     return "OK";
                 }
                  catch (ParseException e) {
-                    System.out.println("SDfsdf");
+                    halt(500, "Server Error");
                 }
         
     
@@ -98,7 +100,7 @@ public class InventoryPostRoutes {
                     return "OK";
                 }
                  catch (ParseException e) {
-
+                    halt(500, "Server Error");
                 }
         
     

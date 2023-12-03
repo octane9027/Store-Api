@@ -149,7 +149,17 @@ public class DatabaseManager {
             return null;
         }
     }
-
+ //Route Created For testing
+ public static JSONArray selectAllInventory() {
+    String sql = "SELECT * FROM ineventory;";
+    try {
+        ResultSet set = conn.createStatement().executeQuery(sql);
+        return convertResultSetToJson(set);
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        return null;
+    }
+}
     public static JSONArray getItems() {
         String sql = "SELECT items.id, items.name, inventory.stock, inventory.capacity FROM items JOIN inventory ON items.id = inventory.item  ORDER BY items.id;";
         try {
@@ -257,8 +267,60 @@ public static JSONArray checkIfItemExists(int Id) {
         return null;
     }
 }
+public static JSONArray checkIfDistributorExists(int Id) {
+    String sql = "SELECT * from distributors where id = ?";
+    try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+        preparedStatement.setInt(1, Id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return convertResultSetToJson(resultSet);       
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        return null;
+    }
+}
 
 public static int InsertItem(int Id, String Name) {
+    String sql = "INSERT INTO items (id, name) VALUES (?, ?)";
+    try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+        preparedStatement.setInt(1, Id);
+        preparedStatement.setString(2, Name);
+        return preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        return 0;
+    }
+
+}
+
+public static int InsertItemInventory(int Id, int capacity,int stock ) {
+    String sql = "INSERT INTO inventory (item, stock, capacity) VALUES (?, ?, ?)";
+    try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+        preparedStatement.setInt(1, Id);
+        preparedStatement.setInt(2, stock);
+        preparedStatement.setInt(3, capacity);
+
+        return preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        return 0;
+    }
+
+}
+public static int InsertDistributorCatalogue(int distributor, int item,int cost ) {
+    String sql = "INSERT INTO distributor_prices (distributor, item, cost) VALUES VALUES (?, ?, ?)";
+    try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+        preparedStatement.setInt(1, distributor);
+        preparedStatement.setInt(2, item);
+        preparedStatement.setInt(3, cost);
+
+        return preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        return 0;
+    }
+
+}
+public static int InsertDistributor(int Id, String Name) {
     String sql = "INSERT INTO items (id, name) VALUES (?, ?)";
     try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
         preparedStatement.setInt(1, Id);
