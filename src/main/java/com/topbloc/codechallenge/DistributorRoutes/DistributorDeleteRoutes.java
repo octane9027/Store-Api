@@ -2,11 +2,6 @@ package com.topbloc.codechallenge.DistributorRoutes;
 import static spark.Spark.*;
 
 import com.topbloc.codechallenge.db.DatabaseManager;
-import org.json.simple.parser.ParseException;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 public class DistributorDeleteRoutes {
     public void configureRoutes() {
@@ -24,7 +19,7 @@ public class DistributorDeleteRoutes {
                 System.out.println("ID Vaildations complete");
                 System.out.println("Checking DB......");
                 int intValue =Integer.parseInt(id);
-                if(DatabaseManager.checkIfItemExists(intValue).size() == 0 ){
+                if(DatabaseManager.checkIfDistributorExists(intValue).size() == 0 ){
                     halt(400, "Bad Request - Distributor does not exist.");
                 }
                 DatabaseManager.DeleteDistributor(intValue);

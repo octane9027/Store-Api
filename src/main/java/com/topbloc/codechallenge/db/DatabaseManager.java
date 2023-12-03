@@ -383,4 +383,24 @@ public static int DeleteDistributor(int itemId) {
     }
 }
 
+
+public static int DeleteItem(int itemId) {
+    String sql = "DELETE FROM items where id = ?;";
+    try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+        preparedStatement.setInt(1, itemId);
+        preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        return 0;
+    }
+    sql = "DELETE FROM inventory where item = ?;";
+    try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+        preparedStatement.setInt(1, itemId);
+        return preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        return 0;
+    }
+}
+
 }

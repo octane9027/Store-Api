@@ -57,6 +57,7 @@ public class Main {
         new InventoryPostRoutes().configureRoutes();
         new InventoryPutRoutes().configureRoutes();
         new InventoryGetRoutes().configureRoutes();
+        new InventoryDeleteRoutes().configureRoutes();
 
         new DistributorPostRoutes().configureRoutes();
         new DistributorGetRoutes().configureRoutes();
