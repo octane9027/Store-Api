@@ -33,7 +33,7 @@ public class Main {
             // Your middleware logic here
             System.out.println("Executing middleware before routes");
         });
-        
+
         get("/reset", (req, res) -> {
             DatabaseManager.resetDatabase();
             return "OK";
@@ -52,7 +52,9 @@ public class Main {
          * its fields, constructors, methods, and usage.
          */
         get("/version", (req, res) -> "TopBloc Code Challenge v1.0");
+        
 
+        new InventoryPostRoutes().configureRoutes();
         
         new InventoryGetRoutes().configureRoutes();
 

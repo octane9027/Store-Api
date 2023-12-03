@@ -26,6 +26,20 @@ public class InventoryGetRoutes {
                         return result;
                     }
                 });
+                get("/Items", (req, res) -> {
+                    System.out.println("/Inventory/Items");
+                    Object result = DatabaseManager.selectAllItems();
+
+                    if(result == null){
+                        res.status(500);
+                        return "Serverside error occured please try again later.";
+
+                    }else{
+                        res.status(200);
+                        System.out.println("SUCESS");
+                        return result;
+                    }
+                });
                     
                 /**
                  *  localhost:4567/GetOutOfStock- 

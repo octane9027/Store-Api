@@ -138,6 +138,18 @@ public class DatabaseManager {
         return obj;
     }
 
+    //Route Created For testing
+    public static JSONArray selectAllItems() {
+        String sql = "SELECT * FROM items;";
+        try {
+            ResultSet set = conn.createStatement().executeQuery(sql);
+            return convertResultSetToJson(set);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
     public static JSONArray getItems() {
         String sql = "SELECT items.id, items.name, inventory.stock, inventory.capacity FROM items JOIN inventory ON items.id = inventory.item  ORDER BY items.id;";
         try {
@@ -224,7 +236,39 @@ public static JSONArray GetByIDDistributor(int Id) {
         return null;
     }
 }
+public static JSONArray getLargestId() {
+    String sql = "SELECT MAX(id) AS max_id FROM items";
+    try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+        ResultSet set = conn.createStatement().executeQuery(sql);
+        return convertResultSetToJson(set);
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        return null;
+    }
+}
+public static JSONArray checkIfItemExists(int Id) {
+    String sql = "SELECT * from items where id = ?";
+    try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+        preparedStatement.setInt(1, Id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return convertResultSetToJson(resultSet);       
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        return null;
+    }
+}
 
+public static int InsertItem(int Id, String Name) {
+    String sql = "INSERT INTO items (id, name) VALUES (?, ?)";
+    try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+        preparedStatement.setInt(1, Id);
+        preparedStatement.setString(2, Name);
+        return preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        return 0;
+    }
 
+}
 
 }
