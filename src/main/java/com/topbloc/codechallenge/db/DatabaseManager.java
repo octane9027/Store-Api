@@ -322,7 +322,7 @@ public static int InsertDistributorCatalogue(int distributor, int item,int cost 
 
 }
 public static int InsertDistributor(int Id, String Name) {
-    String sql = "INSERT INTO items (id, name) VALUES (?, ?)";
+    String sql = "INSERT INTO distributors (id, name) VALUES (?, ?)";
     try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
         preparedStatement.setInt(1, Id);
         preparedStatement.setString(2, Name);
@@ -332,6 +332,55 @@ public static int InsertDistributor(int Id, String Name) {
         return 0;
     }
 
+}
+
+
+public static int updateDistributorPricing(int distributorId, int item, Double cost) {
+    //UPDATE items SET stock = ?, capacity = ? WHERE id = ?
+    String sql = "UPDATE distributor_prices SET cost = ? where distributor = ? AND item = ?;";
+    try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+        preparedStatement.setDouble(1, cost);
+        preparedStatement.setInt(2, distributorId);
+        preparedStatement.setInt(3, item);
+
+        return preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        return 0;
+    }
+
+}
+public static int updateInventory(int itemId, int capacity, int stock) {
+    String sql = "UPDATE inventory SET stock = ? , capacity = ?  where  item = ?;";
+    try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+        preparedStatement.setDouble(1, stock);
+        preparedStatement.setInt(2, capacity);
+        preparedStatement.setInt(3, itemId);
+
+        return preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        return 0;
+    }
+
+}
+public static int DeleteDistributor(int itemId) {
+    String sql = "DELETE FROM distributors where id = ?;";
+    try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+        preparedStatement.setInt(1, itemId);
+        preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        return 0;
+    }
+    sql = "DELETE FROM distributor_prices where distributor = ?;";
+    try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+        preparedStatement.setInt(1, itemId);
+        return preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        return 0;
+    }
 }
 
 }

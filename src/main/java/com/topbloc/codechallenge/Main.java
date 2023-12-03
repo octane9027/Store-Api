@@ -29,7 +29,7 @@ public class Main {
          */
 
 
-         before((req, res) -> {
+        before((req, res) -> {
             // Your middleware logic here
             System.out.println("Executing middleware before routes");
         });
@@ -55,9 +55,13 @@ public class Main {
         
 
         new InventoryPostRoutes().configureRoutes();
-        
+        new InventoryPutRoutes().configureRoutes();
         new InventoryGetRoutes().configureRoutes();
 
+        new DistributorPostRoutes().configureRoutes();
         new DistributorGetRoutes().configureRoutes();
+        new DistributorPutRoutes().configureRoutes();
+        new DistributorDeleteRoutes().configureRoutes();
+
     }
 }
