@@ -35,9 +35,3 @@ has the following feature requirements to complete their work:
     - Delete an existing distributor given their ID
   
 
-
-## Submitting
-1. Create a new repository within GitHub and name it as your favorite animal (ex. Sloth, Zebra)
-2. Set the remote origin of this cloned project to your newly created GitHub repository:
-3. git remote set-url --push origin https://github.com/<github_username>/<favorite_animal>
-4. Push your completed code challenge!
