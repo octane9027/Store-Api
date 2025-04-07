@@ -1,21 +1,10 @@
-# TopBloc Backend Code Challenge
-Welcome to the TopBloc Backend Code Challenge! This challenge is designed to test your ability to write clean, well-documented, and efficient code. 
-Your task is to write a program that will connect to a SQLite database, perform some basic data manipulation, and return the manipulated data as JSON via
-an API connection.
-
-## Requirements
-- Java 11+ (This challenge was built with Java 11, 8 may work but is not guaranteed)
-- A Java IDE (IntelliJ IDEA is recommended)
-- A method to hit the API (Postman, cURL, etc.)
-
 
 ## Getting Started
-1. Clone this repository to your local machine with `git clone https://github.com/TopBloc/backend-code-challenge.git`
-2. Open the project in your IDE
-3. Run the project via the `Main` class or with the run button in your IDE
-4. Hit the API with your method of choice (Postman, cURL, etc.) at `localhost:4567/version` to ensure the project is running correctly.
+1. Open the project in your IDE
+2. Run the project via the `Main` class or with the run button in your IDE
+3. Hit the API with your method of choice (Postman, cURL, etc.) at `localhost:4567/version` to ensure the project is running correctly.
 
-## Challenge
+## Description
 At the start, this project has two classes: `Main` and `DatabaseManager`. `Main` is the location you will write any routes you
 need to add, and `DatabaseManager` contains the code for connecting and interacting with the database.
 
@@ -45,16 +34,7 @@ has the following feature requirements to complete their work:
     - Delete an existing item from your inventory
     - Delete an existing distributor given their ID
   
-## Considerations
-- Feel free to go about this in any way you see fit. You can add any classes or methods you need, and you can modify classes and methods that aren't
-explicitly marked with a comment saying not to modify.
-- Any data returned from the API should be in JSON format. Responses that return no data can return anything, as long as it also returns a 200 on a success
-or a 400/500 on a failure. Bonus points for proper error messaging!
-- Avoid using external libraries that are not already included if possible.
-- The database is already populated with some data, but feel free to add more if you need to.
-- Any approach is valid. For example, no points will be taken off for doing business logic via Java if you are not particularly familiar with SQL.
-Clean code and proper documentation are the most important things.
-- Unit tests are not required, but are encouraged.
+
 
 ## Submitting
 1. Create a new repository within GitHub and name it as your favorite animal (ex. Sloth, Zebra)
